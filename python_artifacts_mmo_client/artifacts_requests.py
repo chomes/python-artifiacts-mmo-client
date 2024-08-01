@@ -1,6 +1,6 @@
 from credentials import bearer_token
 import requests
-from utils.logger import create_logger
+from python_artifacts_mmo_client.utils.logger import create_logger
 from logging import Logger
 
 logger: Logger = create_logger("artifacts_requests")
