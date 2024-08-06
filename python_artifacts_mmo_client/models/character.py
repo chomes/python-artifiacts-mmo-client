@@ -81,3 +81,10 @@ class Character:
     def __repr__(self):
         return f"Character(name={self.name}, level={self.level}, hp={self.hp}, location=({self.x}, {self.y}))"
 
+    def is_cooldown_active(self) -> str:
+        current_time = datetime.now()
+        cooldown_diff = (self.cooldown_expiration - current_time.astimezone()).total_seconds()
+        return cooldown_diff <= 0
+
+
+

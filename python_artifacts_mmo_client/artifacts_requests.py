@@ -6,7 +6,7 @@ from logging import Logger
 logger: Logger = create_logger("artifacts_requests")
 
 BEARER_TOKEN: str = bearer_token["bearer_auth"]
-API_ENDPOINT: str = "https://api.artifactsmmo.com/"
+API_ENDPOINT: str = "https://api.artifactsmmo.com"
 HEADERS: dict[str, str] = {
     "Accept": "application/json",
     "Authorization": f"Bearer {BEARER_TOKEN}",

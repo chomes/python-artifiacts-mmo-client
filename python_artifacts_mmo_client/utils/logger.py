@@ -7,7 +7,7 @@ from time import gmtime
 
 LOG_LEVEL: str = getenv("ARTIFACTS_LOG_LEVEL", "INFO")
 LOG_FILE: str = getenv("ARTIFACTS_LOG_FILE", "python_artifacts.log")
-LOG_LEVELS: dict[str, int] = {"INFO", logging.INFO, "DEBUG", logging.DEBUG}
+LOG_LEVELS: dict[str, int] = {"INFO": logging.INFO, "DEBUG": logging.DEBUG}
 
 def init_logger() -> None:
     """
@@ -19,7 +19,7 @@ def init_logger() -> None:
     file_handler: WatchedFileHandler = WatchedFileHandler(LOG_FILE)
 
     logging.basicConfig(
-        format=f"$(asctime)s.$(msecs)03dz {socket.gethostname()} %(levelname).1s %(name)-18s $(message)s",
+        format=f"%(asctime)s.%(msecs)03dz {socket.gethostname()} %(levelname).1s %(name)-18s %(message)s",
         datefmt="%Y-%m-%dT%H:ML%S",
         level=LOG_LEVELS[LOG_LEVEL],
         handlers=[stream_handler, file_handler],
