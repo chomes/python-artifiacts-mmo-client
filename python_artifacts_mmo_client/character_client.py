@@ -55,12 +55,12 @@ class CharacterClient:
             logger.info("Found character, populating character data")
             self.character = Character(response["data"])
 
-    def is_valid_move(self, position_x, position_y) -> bool:
+    def __is_valid_move(self, position_x, position_y) -> bool:
         old_position: tuple[int, int] = self.character.x, self.character.y
         if old_position == (position_x, position_y):
             raise InvalidMovementError()
 
-    def error_handler(
+    def __error_handler(
         self, response: dict[str, str], exception_handler: Exception
     ) -> None:
         if "error" in response:
@@ -74,7 +74,7 @@ class CharacterClient:
             f"{self.character.name} is at {self.character.x}, {self.character.y}"
         )
 
-    def validate_cooldown_completed(self) -> None:
+    def __validate_cooldown_completed(self) -> None:
         if self.character.is_cooldown_active():
             logger.error(
                 f"The cooldown period is not ready yet, please wait, the expire time for the cooldown is {self.character.cooldown_expiration.ctime()}"
@@ -98,7 +98,7 @@ class CharacterClient:
     def move_character(
         self, new_position: tuple[int, int] | None = None, direction: str | None = None
     ) -> None:
-        self.validate_cooldown_completed()
+        self.__validate_cooldown_completed()
         if direction:
             logger.info(
                 f"User is choosing to move via direction, this will move to {direction}"
@@ -115,36 +115,36 @@ class CharacterClient:
                 "You have provided neither a new position or a direction, please do this before trying again"
             )
 
-        self.is_valid_move(position[0], position[1])
+        self.__is_valid_move(position[0], position[1])
         movement: dict[str, int] = {"x": position[0], "y": position[1]}
         response = self.artifacts_requests.post(
             f"/my/{self.character.name}/action/move", data=movement
         )
-        self.error_handler(response, InvalidMovementError)
+        self.__error_handler(response, InvalidMovementError)
         self.character = Character(response["data"]["character"])
         logger.info(
             f"You are now at position X: {response['data']['destination']['x']} Y {response['data']['destination']['y']}"
         )
 
     def equip_item(self, item: str, slot: str) -> None:
-        self.validate_cooldown_completed()
+        self.__validate_cooldown_completed()
         item_to_equip: dict[str, str] = {"code": item, "slot": slot}
         response = self.artifacts_requests.post(
             f"/my/{self.character.name}/action/equip", data=item_to_equip
         )
-        self.error_handler(response, ItemEquipError)
+        self.__error_handler(response, ItemEquipError)
         self.character = Character(response["data"]["character"])
         logger.info(
             f"Item {response['data']['item']['name']} was equipped onto {self.character.name}"
         )
 
     def attack_monster(self, monster: str) -> None:
-        self.validate_cooldown_completed()
+        self.__validate_cooldown_completed()
         logger.info(f"Attacking monster {monster}")
         response = self.artifacts_requests.post(
             f"/my/{self.character.name}/action/fight", data={}
         )
-        self.error_handler(response, AttackMonsterError)
+        self.__error_handler(response, AttackMonsterError)
         fight_result: Fight = Fight(response["data"]["fight"])
         self.character = Character(response["data"]["character"])
 
