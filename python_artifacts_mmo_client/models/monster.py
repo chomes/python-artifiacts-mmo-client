@@ -21,31 +21,33 @@ class Monster:
             "fire": self.attack_fire,
             "water": self.attack_water,
             "earth": self.attack_earth,
-            "air": self.attack_air}
+            "air": self.attack_air,
+        }
         highest_attack_name = ""
         highest_attack_power = 0
-        
+
         for attack, power in attack_type.items():
             if power > highest_attack_power:
                 highest_attack_name = attack
                 highest_attack_power = power
-        
-        return highest_attack_name, highest_attack_power    
+
+        return highest_attack_name, highest_attack_power
 
     def get_highest_res_type(self) -> tuple[str, int]:
         res_type: dict[str, int] = {
             "fire": self.res_fire,
             "water": self.res_water,
             "earth": self.res_earth,
-            "air": self.res_air}
+            "air": self.res_air,
+        }
         highest_res_name = ""
         highest_res_power = 0
-        
+
         for res, power in res_type.items():
             if power > highest_res_power:
                 highest_res_name = res
                 highest_res_power = power
-        
+
         return highest_res_name, highest_res_power
 
     def __repr__(self) -> str:

@@ -9,6 +9,7 @@ LOG_LEVEL: str = getenv("ARTIFACTS_LOG_LEVEL", "INFO")
 LOG_FILE: str = getenv("ARTIFACTS_LOG_FILE", "python_artifacts.log")
 LOG_LEVELS: dict[str, int] = {"INFO": logging.INFO, "DEBUG": logging.DEBUG}
 
+
 def init_logger() -> None:
     """
     Initialises the logging functionality, should be used when you make a script to do actions on the mmo and not on any of the modules

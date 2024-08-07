@@ -11,7 +11,7 @@ def read_file(fname) -> str:
 
 
 setuptools.setup(
-    name="python-artifiacts-mmo-client", # Replace with your own username
+    name="python-artifiacts-mmo-client", 
     version="1",
     author="chomes",
     packages=setuptools.find_packages(exclude=("test",)),
@@ -22,7 +22,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/chomes/python-artifiacts-mmo-client",
     install_requires=[
-        "requests==2.32.3"
+        "requests==2.32.3",
+        "black==24.8.0"
     ],
     classifiers=[
         "Programming Language :: Python :: 3",
