@@ -20,8 +20,8 @@ def init_logger() -> None:
     file_handler: WatchedFileHandler = WatchedFileHandler(LOG_FILE)
 
     logging.basicConfig(
-        format=f"%(asctime)s.%(msecs)03dz {socket.gethostname()} %(levelname).1s %(name)-18s %(message)s",
-        datefmt="%Y-%m-%dT%H:ML%S",
+        format=f"%(asctime)s.%(msecs)03d {socket.gethostname()} %(levelname).1s %(name)-18s %(message)s",
+        datefmt="%Y-%m-%dT%H:%M:%S",
         level=LOG_LEVELS[LOG_LEVEL],
         handlers=[stream_handler, file_handler],
     )
