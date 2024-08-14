@@ -1,3 +1,5 @@
+from python_artifacts_mmo_client.models.drop import Drop
+
 class Monster:
     def __init__(self, data: dict[str, str | int]) -> None:
         self.name = data.get("name", "ScaryMonster")
@@ -14,7 +16,7 @@ class Monster:
         self.res_air = data.get("res_air")
         self.min_gold = data.get("min_gold")
         self.max_gold = data.get("max_gold")
-        self.drops = data.get("drops")
+        self.drops = [Drop(item) for item in data.get("drops", [])]
 
     def get_highest_attack_type(self) -> tuple[str, int]:
         attack_type: dict[str, int] = {
