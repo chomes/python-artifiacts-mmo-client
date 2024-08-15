@@ -1,5 +1,6 @@
 from python_artifacts_mmo_client.models.drop import Drop
 
+
 class Monster:
     def __init__(self, data: dict[str, str | int]) -> None:
         self.name = data.get("name", "ScaryMonster")

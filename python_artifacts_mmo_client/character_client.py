@@ -6,9 +6,9 @@ from logging import Logger
 
 
 class InvalidCharacterError(Exception):
-    def __init__(self, character: str) -> None:
+    def __init__(self) -> None:
         super().__init__(
-            f"You tried to get character {character} but it doesn't exist, please try again"
+            f"You tried to get a character but it doesn't exist, please try again"
         )
 
 
