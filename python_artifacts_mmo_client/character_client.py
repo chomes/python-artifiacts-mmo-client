@@ -8,7 +8,7 @@ from logging import Logger
 class InvalidCharacterError(Exception):
     def __init__(self) -> None:
         super().__init__(
-            f"You tried to get a character but it doesn't exist, please try again"
+            "You tried to get a character but it doesn't exist, please try again"
         )
 
 
@@ -50,12 +50,12 @@ class CharacterClient:
         response: dict[str, str] = self.artifacts_requests.get(f"/characters/{name}")
         if "error" in response:
             logger.error(f"{name} is not a valid character, try again")
-            raise InvalidCharacterError(Character)
+            raise InvalidCharacterError()
         else:
             logger.info("Found character, populating character data")
             self.character = Character(response["data"])
 
-    def __is_valid_move(self, position_x, position_y) -> bool:
+    def __is_valid_move(self, position_x, position_y) -> None:
         old_position: tuple[int, int] = self.character.x, self.character.y
         if old_position == (position_x, position_y):
             raise InvalidMovementError()
@@ -114,6 +114,7 @@ class CharacterClient:
             logger.error(
                 "You have provided neither a new position or a direction, please do this before trying again"
             )
+            raise ValueError("No arguments passed in")
 
         self.__is_valid_move(position[0], position[1])
         movement: dict[str, int] = {"x": position[0], "y": position[1]}
@@ -126,8 +127,21 @@ class CharacterClient:
             f"You are now at position X: {response['data']['destination']['x']} Y {response['data']['destination']['y']}"
         )
 
+    def __is_valid_item_slot(self, item_slot: str) -> None:
+        slots: tuple[str] = (
+            "weapon", "shield", "helmet", "body_armour",
+            "leg_armour", "boots", "ring1", "ring2",
+            "amulet", "artifact1", "artifact2", "artifact3",
+            "consumable1", "consumable2"
+            )
+        if item_slot.lower() in slots:
+            pass
+        else:
+            raise ValueError("Not a valid item slot")
+
     def equip_item(self, item: str, slot: str) -> None:
         self.__validate_cooldown_completed()
+        self.__is_valid_item_slot(slot)
         item_to_equip: dict[str, str] = {"code": item, "slot": slot}
         response = self.artifacts_requests.post(
             f"/my/{self.character.name}/action/equip", data=item_to_equip

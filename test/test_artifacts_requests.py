@@ -1,5 +1,6 @@
 from python_artifacts_mmo_client.artifacts_requests import ArtifactsRequests
 
+
 class MockResponse:
     @staticmethod
     def json() -> dict[str, str]:
@@ -10,9 +11,13 @@ class MockRequests:
     @staticmethod
     def get(url: str, headers: dict[str, str]) -> MockResponse:
         return MockResponse()
-    
+
     @staticmethod
-    def post(url: str, json: dict[str, str], headers: dict[str, str], ) -> MockResponse:
+    def post(
+        url: str,
+        json: dict[str, str],
+        headers: dict[str, str],
+    ) -> MockResponse:
         return MockResponse()
 
 
@@ -25,6 +30,7 @@ def test_get() -> None:
 
     # Assert
     assert response == {"data": {"name": "Dummy Character"}}
+
 
 def test_post() -> None:
     # Arrange
