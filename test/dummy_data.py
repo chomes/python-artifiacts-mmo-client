@@ -175,3 +175,64 @@ movement_data = {
         },
     }
 }
+
+
+monster_data = {
+    "data": {
+        "name": "DireWolf",
+        "code": "monster",
+        "level": 4,
+        "hp": 0,
+        "attack_fire": 0,
+        "attack_earth": 0,
+        "attack_water": 0,
+        "attack_air": 0,
+        "res_fire": 0,
+        "res_earth": 0,
+        "res_water": 0,
+        "res_air": 0,
+        "min_gold": 0,
+        "max_gold": 0,
+        "drops": [{"code": "string", "rate": 1, "min_quantity": 1, "max_quantity": 1}],
+    }
+}
+
+
+resource_data = {
+    "data": {
+        "name": "ingot",
+        "code": "ores",
+        "skill": "mining",
+        "level": 0,
+        "drops": [{"code": "string", "rate": 1, "min_quantity": 1, "max_quantity": 1}],
+    }
+}
+
+map_data = {
+    "data": {
+        "name": "candy_land",
+        "skin": "string",
+        "x": 0,
+        "y": 0,
+        "content": {"type": "string", "code": "string"},
+    }
+}
+
+events_data = {
+    "data": [
+        {
+            "name": "string",
+            "map": {
+                "name": "string",
+                "skin": "string",
+                "x": 0,
+                "y": 0,
+                "content": {"type": "string", "code": "string"},
+            },
+            "previous_skin": "string",
+            "duration": 0,
+            "expiration": "2019-08-24T14:15:22Z",
+            "created_at": "2019-08-24T14:15:22Z",
+        }
+    ]
+}
