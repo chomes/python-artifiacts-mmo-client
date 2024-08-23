@@ -40,12 +40,13 @@ def test_getting_character() -> None:
         data_to_send=character_data
     )
     character_client: CharacterClient = CharacterClient(artifacts_requests)
+    character_response = Character(character_data["data"])
 
     # Act
     character_client.get_character("Dummy character")
 
     # Assert
-    assert character_client.character.skin == "men1"
+    assert character_client.character.__dict__ == character_response.__dict__
 
 
 def test_failing_to_get_character() -> None:
