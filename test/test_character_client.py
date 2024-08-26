@@ -5,12 +5,14 @@ from python_artifacts_mmo_client.character_client import (
     CooldownActiveError,
     ItemEquipError,
     AttackMonsterError,
+    NoCharactersExistError,
+    CreateCharacterError,
 )
 from python_artifacts_mmo_client.models.character import Character
 
 
 import pytest
-from dummy_data import character_data, movement_data
+from dummy_data import character_data, movement_data, characters_data
 import datetime
 
 
@@ -32,6 +34,72 @@ class MockArtifactRequests:
             return {"error": {"message": "bad option"}}
         else:
             return self.data if self.data else {"data": {"name": "fake name"}}
+
+
+def test_getting_characters() -> None:
+    # Arrange
+    artifacts_requests: MockArtifactRequests = MockArtifactRequests(
+        data_to_send=characters_data
+    )
+    character_client: CharacterClient = CharacterClient(artifacts_requests)
+    characters_response = [Character(character_data["data"])]
+
+    # Act
+    response = character_client.get_characters()
+
+    # Assert
+    assert characters_response[0].__dict__ == response[0].__dict__
+
+
+def test_failing_to_get_characters() -> None:
+    # Arrange
+    artifacts_requests: MockArtifactRequests = MockArtifactRequests(
+        test_state="no_characters", data_to_send=characters_data
+    )
+    character_client: CharacterClient = CharacterClient(artifacts_requests)
+
+    # Act & Assert
+    with pytest.raises(NoCharactersExistError):
+        character_client.get_characters()
+
+
+def test_creating_character() -> None:
+    # Arrange
+    artifacts_requests: MockArtifactRequests = MockArtifactRequests(
+        data_to_send=character_data
+    )
+    character_client: CharacterClient = CharacterClient(artifacts_requests)
+    character_response = Character(character_data["data"])
+
+    # Act
+    response = character_client.create_character("Dummy character", "men1")
+
+    # Assert
+    assert character_response.__dict__ == response.__dict__
+
+
+def test_failing_to_create_character_due_to_wrong_skin() -> None:
+    # Arrange
+    artifacts_requests: MockArtifactRequests = MockArtifactRequests(
+        data_to_send=character_data
+    )
+    character_client: CharacterClient = CharacterClient(artifacts_requests)
+
+    # Act & Assert
+    with pytest.raises(CreateCharacterError):
+        character_client.create_character("Dummy character", "dummy_skin")
+
+
+def test_failing_to_create_character_due_to_api_error() -> None:
+    # Arrange
+    artifacts_requests: MockArtifactRequests = MockArtifactRequests(
+        test_state="post_failure", data_to_send=character_data
+    )
+    character_client: CharacterClient = CharacterClient(artifacts_requests)
+
+    # Act & Assert
+    with pytest.raises(CreateCharacterError):
+        character_client.create_character("Dummy character", "men1")
 
 
 def test_getting_character() -> None:

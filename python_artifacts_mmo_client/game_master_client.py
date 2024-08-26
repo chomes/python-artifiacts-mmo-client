@@ -58,14 +58,14 @@ class GMClient:
         logger.debug(f"Server status details {response}")
         return response["data"]
 
-    def get_resource(self, resource_name: str) -> dict[str, str | int]:
+    def get_resource(self, resource_name: str) -> Resource:
         """Get a resource the user wants to have
 
         Args:
             resource_name (str): "iron_ore"
 
         Returns:
-            dict[str, str | int]: {"data": {"name": "iron_ore"}}
+            Resource: Object containing resource
         """
         response: dict[str, str | int] = self.artifacts_requests.get(
             f"/resources/{resource_name}"

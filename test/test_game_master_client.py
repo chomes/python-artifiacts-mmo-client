@@ -16,6 +16,7 @@ from dummy_data import (
     map_data,
     character_data,
     events_data,
+    server_status,
 )
 
 import pytest
@@ -39,6 +40,20 @@ class MockArtifactRequests:
             return {"error": {"message": "bad option"}}
         else:
             return self.data if self.data else {"data": {"name": "fake name"}}
+
+
+def test_getting_server_status() -> None:
+    # Arrange
+    mock_artifact_requests: MockArtifactRequests = MockArtifactRequests(
+        data_to_send=server_status
+    )
+    gm_client: GMClient = GMClient(mock_artifact_requests)
+
+    # Act
+    response: dict[str, str | int] = gm_client.get_server_status()
+
+    # Assert
+    assert response["status"] == "online"
 
 
 def test_getting_resource() -> None:

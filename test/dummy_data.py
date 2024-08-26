@@ -74,6 +74,22 @@ character_data: dict[str, str | int] = {
     }
 }
 
+characters_data = {"data": [character_data["data"]]}
+
+
+server_status = {
+    "data": {
+        "status": "online",
+        "version": "1.33.7",
+        "max_level": 50,
+        "characters_online": 10_000,
+        "server_time": "2019-08-24T14:15:22Z",
+        "announcements": [{"message": "string", "created_at": "2019-08-24T14:15:22Z"}],
+        "last_wipe": "string",
+        "next_wipe": "string",
+    }
+}
+
 movement_data = {
     "data": {
         "destination": {"x": 1, "y": 1},
