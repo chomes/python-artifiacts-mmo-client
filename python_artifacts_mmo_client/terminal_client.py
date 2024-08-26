@@ -6,5 +6,3 @@ from python_artifacts_mmo_client.models.drop import Drop
 from python_artifacts_mmo_client.models.fight import Fight
 from python_artifacts_mmo_client.models.map import Map
 from python_artifacts_mmo_client.models.resource import Resource
-
-

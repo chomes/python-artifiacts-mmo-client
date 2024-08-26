@@ -3,8 +3,8 @@ from python_artifacts_mmo_client.game_master_client import (
     GetMapError,
     GetMonsterError,
     GetEventsError,
-    GMClient
-    )
+    GMClient,
+)
 from python_artifacts_mmo_client.models.map import Map
 from python_artifacts_mmo_client.models.monster import Monster
 from python_artifacts_mmo_client.models.resource import Resource
@@ -15,10 +15,11 @@ from dummy_data import (
     monster_data,
     map_data,
     character_data,
-    events_data
+    events_data,
 )
 
 import pytest
+
 
 class MockArtifactRequests:
     def __init__(
@@ -42,7 +43,9 @@ class MockArtifactRequests:
 
 def test_getting_resource() -> None:
     # Arrange
-    mock_artifact_requests: MockArtifactRequests = MockArtifactRequests(data_to_send=resource_data)
+    mock_artifact_requests: MockArtifactRequests = MockArtifactRequests(
+        data_to_send=resource_data
+    )
     gm_client: GMClient = GMClient(mock_artifact_requests)
 
     # Act
@@ -56,8 +59,7 @@ def test_getting_resource() -> None:
 def test_failing_to_get_resource() -> None:
     # Arrange
     mock_artifact_requests: MockArtifactRequests = MockArtifactRequests(
-        test_state="failure",
-        data_to_send=resource_data
+        test_state="failure", data_to_send=resource_data
     )
     gm_client: GMClient = GMClient(mock_artifact_requests)
 
@@ -148,13 +150,11 @@ def test_failing_to_get_map() -> None:
 
 
 @pytest.mark.parametrize(
-        "character_level, monster_level, response_bool",
-        [
-            (1, 2, False),
-            (2, 1, True)
-        ]
+    "character_level, monster_level, response_bool", [(1, 2, False), (2, 1, True)]
 )
-def test_if_character_higher_than_monster(character_level, monster_level, response_bool) -> None:
+def test_if_character_higher_than_monster(
+    character_level, monster_level, response_bool
+) -> None:
     # Arrange
     mock_artifact_requests: MockArtifactRequests = MockArtifactRequests(
         test_state="failure", data_to_send=map_data
@@ -166,7 +166,9 @@ def test_if_character_higher_than_monster(character_level, monster_level, respon
     monster.level = monster_level
 
     # Act
-    response: bool = gm_client.is_character_higher_level_then_monster(character, monster)
+    response: bool = gm_client.is_character_higher_level_then_monster(
+        character, monster
+    )
 
     # Assert
     assert response == response_bool

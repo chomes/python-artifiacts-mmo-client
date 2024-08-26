@@ -19,6 +19,7 @@ class ArtifactsRequests:
         self.requests_module: requests = requests_module
 
     def get(self, endpoint: str) -> dict[str, str]:
+
         response: requests.Response = self.requests_module.get(
             f"{API_ENDPOINT}{endpoint}", headers=HEADERS
         )
