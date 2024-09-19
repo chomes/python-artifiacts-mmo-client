@@ -104,6 +104,18 @@ class GMClient:
         self.__error_handler(response, GetMapError)
         return Map(response["data"])
 
+    def get_entire_map(self) -> list[Map]:
+        """Get the entire gaming map
+
+        Returns:
+            list[Map]: [Map<1, 2>]
+        """
+        response: dict[str, str | int] = self.artifacts_requests.get(
+            f"/maps"
+        )
+        game_map: list[Map] = [Map(section_map) for section_map in response["data"]]
+        return game_map
+
     def get_events(self) -> list[dict[str, str | int]]:
         """Events are what your character has done (mining, attacking, farming, etc).
         This gets the events of what your character has done to date.

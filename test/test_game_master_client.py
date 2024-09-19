@@ -17,6 +17,7 @@ from dummy_data import (
     character_data,
     events_data,
     server_status,
+    maps_data,
 )
 
 import pytest
@@ -135,6 +136,20 @@ def test_failing_to_get_map() -> None:
     # Act & Assert
     with pytest.raises(GetMapError):
         gm_client.get_map(1, 2)
+
+
+def test_getting_maps() -> None:
+    # Arrange
+    mock_artifact_requests: MockArtifactRequests = MockArtifactRequests(
+        data_to_send=maps_data
+    )
+    gm_client: GMClient = GMClient(mock_artifact_requests)
+
+    # Act
+    response: list[Map] = gm_client.get_entire_map()
+
+    # Assert
+    assert response[0].name == "candy_land"
 
 
 def test_getting_events() -> None:

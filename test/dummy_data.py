@@ -234,6 +234,16 @@ map_data = {
     }
 }
 
+maps_data = {
+    "data": [{
+        "name": "candy_land",
+        "skin": "string",
+        "x": 0,
+        "y": 0,
+        "content": {"type": "string", "code": "string"},
+    }]
+}
+
 events_data = {
     "data": [
         {
