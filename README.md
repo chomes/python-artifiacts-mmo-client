@@ -25,9 +25,7 @@ Please feel free to view the methods in the classes to understand what they do, 
 and have reasonable names that make it easy to understand.
 
 ## Future work
-I will be working on a terminal script that will play the game in the termina, it'll be text based first and over time do ASCII art. 
-
-I will also work on trying to automate doing operations such as monster battling, material farming etc
+I'm currently working on the Terminal client, I'll also be working on a way to regularly update data behind the scenes such as maps etc and also downloading a cache of information to reduce loading times when doing calculations on things such as resources and monsters.
 
 
 
